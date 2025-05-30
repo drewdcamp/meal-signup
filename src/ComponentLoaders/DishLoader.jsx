@@ -4,11 +4,10 @@ import ContentLoader from "react-content-loader";
 const DishLoader = (props) => (
   <ContentLoader
     speed={1}
-    width={440}
-    height={240}
-    viewBox="0 0 440 240"
+    viewBox="0 0 440 600"
     backgroundColor="#ffffff88"
     foregroundColor="#ffffff44"
+    width={'90vw'}
     {...props}
   >
     <rect x="0" y="00" rx="3" ry="3" width="200" height="36" />
