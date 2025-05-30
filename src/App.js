@@ -80,7 +80,6 @@ function App() {
   const params = useParams();
 
   React.useEffect(() => {
-    console.log(cookies)
 
     if (cookies.email) {
       setUserEmail(cookies.email);
@@ -205,7 +204,7 @@ function App() {
     groupURL,
   ]);
 
-  const updateEmail = React.useCallback (() => {
+  const updateEmail = React.useCallback(() => {
     setUserEmail(formEmail);
     setEmailVisible(false);
     setFormVisible(true);
@@ -459,7 +458,7 @@ function App() {
                   </Typography>
                 </Button>
 
-                {!rsvpExists && <Button onClick = {() => {setEmailVisible(true)}}>Edit Existing RSVP</Button>}
+                {!rsvpExists && <Button onClick={() => { setEmailVisible(true) }}>Edit Existing RSVP</Button>}
               </>
             )}
 
@@ -472,69 +471,69 @@ function App() {
               }}
             >
               <>
-                  <div
-                    style={{ width: "100%", height: "95%", overflowY: "auto" }}
-                  >
-                    <Typography textAlign="center" variant="h4">
-                      {"Enter Email"}
-                    </Typography>
+                <div
+                  style={{ width: "100%", height: "95%", overflowY: "auto" }}
+                >
+                  <Typography textAlign="center" variant="h4">
+                    {"Enter Email"}
+                  </Typography>
 
-                    <Typography textAlign="center" variant="body1">
-                      {"We'll check if your email has an existing RSVP."}
-                    </Typography>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexWrap: "wrap-reverse",
-                        flexDirection: "row-reverse",
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <IconButton disabled edge="end">
-                          {<AlternateEmailIcon edge="end" />}
-                        </IconButton>
-                        <FormControl
-                          variant="outlined"
-                          sx={{ m: 1, width: "25ch" }}
-                        >
-                          <InputLabel htmlFor="email-input">Email</InputLabel>
-                          <OutlinedInput
-                            type="text"
-                            value={formEmail}
-                            onChange={(e) => {
-                              setFormEmail(e.target.value);
-                            }}
-                            label="email-input"
-                          />
-                        </FormControl>
-                      </div>
-                    </div>
-                  </div>
+                  <Typography textAlign="center" variant="body1">
+                    {"We'll check if your email has an existing RSVP."}
+                  </Typography>
 
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      maxWidth: "100%",
-                      height: "5%",
+                      justifyContent: "center",
+                      flexWrap: "wrap-reverse",
+                      flexDirection: "row-reverse",
                     }}
                   >
-                    <Button
-                      variant="outlined"
-                      sx={{ m: 1, width: "64ch" }}
-                      disabled={!canSubmitEmail}
-                      onClick={updateEmail}
-                      color="success"
-                    >
-                      {canSubmitEmail
-                        ? "Edit RSVP"
-                        : "Please enter an Email"}
-                    </Button>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <IconButton disabled edge="end">
+                        {<AlternateEmailIcon edge="end" />}
+                      </IconButton>
+                      <FormControl
+                        variant="outlined"
+                        sx={{ m: 1, width: "25ch" }}
+                      >
+                        <InputLabel htmlFor="email-input">Email</InputLabel>
+                        <OutlinedInput
+                          type="text"
+                          value={formEmail}
+                          onChange={(e) => {
+                            setFormEmail(e.target.value);
+                          }}
+                          label="email-input"
+                        />
+                      </FormControl>
+                    </div>
                   </div>
-                </>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    maxWidth: "100%",
+                    height: "5%",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    sx={{ m: 1, width: "64ch" }}
+                    disabled={!canSubmitEmail}
+                    onClick={updateEmail}
+                    color="success"
+                  >
+                    {canSubmitEmail
+                      ? "Edit RSVP"
+                      : "Please enter an Email"}
+                  </Button>
+                </div>
+              </>
             </Dialog>
 
             <Dialog
@@ -731,7 +730,7 @@ function App() {
                     </div>
 
                     {mealData.SecondaryName &&
-                    mealData.SecondaryDescription !== "N/A" ? (
+                      mealData.SecondaryDescription !== "N/A" ? (
                       <div
                         style={{
                           display: "flex",
@@ -998,7 +997,7 @@ function App() {
                     </div>
 
                     {mealData.SecondaryName &&
-                    mealData.SecondaryDescription !== "N/A" ? (
+                      mealData.SecondaryDescription !== "N/A" ? (
                       <div className="dish">
                         <Typography variant="h4">
                           {mealData.SecondaryName}
@@ -1095,7 +1094,7 @@ function App() {
                   variant="outlined"
                   color="white"
                   sx={{ width: "30ch", maxWidth: "90vw" }}
-                  href="/meal-signup/sagert"
+                  href="#/sagert"
                 >
                   <Typography textAlign="center" variant="h5">
                     Sagert
