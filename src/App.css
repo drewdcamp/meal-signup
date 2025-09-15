@@ -177,17 +177,21 @@ body {
   text-align: center;
 }
 
+.dish-entry-dash {
+  flex-shrink: 0;
+  text-align: right;
+}
+
 .dish-entry-title {
   flex: 3;
   flex-grow: 1;
   text-align: left;
   overflow-x: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .dish-entry-title:after {
-  content: "............................................................................";
+  content: "";
 }
 
 .dish-entry-person {

@@ -80,7 +80,6 @@ function App() {
   const params = useParams();
 
   React.useEffect(() => {
-
     if (cookies.email) {
       setUserEmail(cookies.email);
     }
@@ -208,7 +207,7 @@ function App() {
     setUserEmail(formEmail);
     setEmailVisible(false);
     setFormVisible(true);
-  }, [formEmail])
+  }, [formEmail]);
 
   React.useEffect(() => {
     if (groupExists) {
@@ -219,6 +218,9 @@ function App() {
   const dishEntry = React.useCallback((dishName, personName) => {
     return (
       <div className="dish-entry">
+        <Typography variant="h6" className="dish-entry-dash">
+          {"•"} 
+        </Typography>
         <Typography variant="h6" className="dish-entry-title">
           {dishName}
         </Typography>
@@ -285,11 +287,11 @@ function App() {
   React.useEffect(() => {
     const attendees = [];
     const nonAttendees = [];
-    const primaryDishes = [];
-    const secondaryDishes = [];
-    const sideDishes = [];
-    const desserts = [];
-    const beverages = [];
+    const primaryList = [];
+    const secondaryList = [];
+    const sideList = [];
+    const dessertList = [];
+    const beverageList = [];
 
     let adultCount = 0;
     let childCount = 0;
@@ -315,23 +317,38 @@ function App() {
           childCount += rsvp?.ChildCount ?? 0;
 
           if (rsvp.HasPrimary) {
-            primaryDishes.push(dishEntry(rsvp.PrimaryName, rsvp.Name));
+            const primaryEntries = rsvp.PrimaryName.split(";");
+            for (let i = 0; i < primaryEntries.length; i++) {
+              primaryList.push(dishEntry(primaryEntries[i], rsvp.Name));
+            }
           }
 
           if (rsvp.HasSecondary) {
-            secondaryDishes.push(dishEntry(rsvp.SecondaryName, rsvp.Name));
+            const secondaryEntries = rsvp.SecondaryName.split(";");
+            for (let i = 0; i < secondaryEntries.length; i++) {
+              secondaryList.push(dishEntry(secondaryEntries[i], rsvp.Name));
+            }
           }
 
           if (rsvp.HasSide) {
-            sideDishes.push(dishEntry(rsvp.SideName, rsvp.Name));
+            const sideEntries = rsvp.SideName.split(";");
+            for (let i = 0; i < sideEntries.length; i++) {
+              sideList.push(dishEntry(sideEntries[i], rsvp.Name));
+            }
           }
 
           if (rsvp.HasDessert) {
-            desserts.push(dishEntry(rsvp.DessertName, rsvp.Name));
+            const dessertEntries = rsvp.DessertName.split(";");
+            for (let i = 0; i < dessertEntries.length; i++) {
+              dessertList.push(dishEntry(dessertEntries[i], rsvp.Name));
+            }
           }
 
           if (rsvp.HasBeverage) {
-            beverages.push(dishEntry(rsvp.BeverageName, rsvp.Name));
+            const beverageEntries = rsvp.BeverageName.split(";");
+            for (let i = 0; i < beverageEntries.length; i++) {
+              beverageList.push(dishEntry(beverageEntries[i], rsvp.Name));
+            }
           }
         } else {
           nonAttendees.push(attendeeEntry(rsvp.Name, "", "", rsvp.Note));
@@ -376,43 +393,43 @@ function App() {
 
     setAttendeeEntries(attendees);
 
-    if (primaryDishes.length > 0) {
-      setPrimaryEntries(primaryDishes);
+    if (primaryList.length > 0) {
+      setPrimaryEntries(primaryList);
     } else {
       setPrimaryEntries(blankEntry);
     }
 
-    if (secondaryDishes.length > 0) {
-      setSecondaryEntries(secondaryDishes);
+    if (secondaryList.length > 0) {
+      setSecondaryEntries(secondaryList);
     } else {
       setSecondaryEntries(blankEntry);
     }
 
-    if (sideDishes.length > 0) {
-      setSideEntries(sideDishes);
+    if (sideList.length > 0) {
+      setSideEntries(sideList);
     } else {
       setSideEntries(blankEntry);
     }
 
-    if (desserts.length > 0) {
-      setDessertEntries(desserts);
+    if (dessertList.length > 0) {
+      setDessertEntries(dessertList);
     } else {
       setDessertEntries(blankEntry);
     }
 
-    if (beverages.length > 0) {
-      setBeverageEntries(beverages);
+    if (beverageList.length > 0) {
+      setBeverageEntries(beverageList);
     } else {
       setBeverageEntries(blankEntry);
     }
   }, [attendeeEntry, blankEntry, dishEntry, rsvps, userEmail]);
 
   const canSubmit = React.useMemo(() => {
-    return (!!formName && !!formEmail);
+    return !!formName && !!formEmail;
   }, [formName, formEmail]);
 
   const canSubmitEmail = React.useMemo(() => {
-    return (!!formEmail);
+    return !!formEmail;
   }, [formEmail]);
 
   return (
@@ -458,7 +475,15 @@ function App() {
                   </Typography>
                 </Button>
 
-                {!rsvpExists && <Button onClick={() => { setEmailVisible(true) }}>Edit Existing RSVP</Button>}
+                {!rsvpExists && (
+                  <Button
+                    onClick={() => {
+                      setEmailVisible(true);
+                    }}
+                  >
+                    Edit Existing RSVP
+                  </Button>
+                )}
               </>
             )}
 
@@ -528,9 +553,7 @@ function App() {
                     onClick={updateEmail}
                     color="success"
                   >
-                    {canSubmitEmail
-                      ? "Edit RSVP"
-                      : "Please enter an Email"}
+                    {canSubmitEmail ? "Edit RSVP" : "Please enter an Email"}
                   </Button>
                 </div>
               </>
@@ -682,6 +705,11 @@ function App() {
                         "Check each item you're bringing and provide a brief description."
                       }
                     </Typography>
+                    <Typography textAlign="center" variant="body1">
+                      {
+                        "Use a semicolon to separate multiple items in the same category."
+                      }
+                    </Typography>
 
                     <div
                       style={{
@@ -730,7 +758,7 @@ function App() {
                     </div>
 
                     {mealData.SecondaryName &&
-                      mealData.SecondaryDescription !== "N/A" ? (
+                    mealData.SecondaryDescription !== "N/A" ? (
                       <div
                         style={{
                           display: "flex",
@@ -997,7 +1025,7 @@ function App() {
                     </div>
 
                     {mealData.SecondaryName &&
-                      mealData.SecondaryDescription !== "N/A" ? (
+                    mealData.SecondaryDescription !== "N/A" ? (
                       <div className="dish">
                         <Typography variant="h4">
                           {mealData.SecondaryName}
