@@ -50,6 +50,7 @@ function App() {
   const [formHasBeverage, setFormHasBeverage] = React.useState(false);
 
   const [formName, setFormName] = React.useState("");
+  const [tmpEmail, setTmpEmail] = React.useState("");
   const [formEmail, setFormEmail] = React.useState("");
   const [formCountA, setFormCountA] = React.useState(0);
   const [formCountC, setFormCountC] = React.useState(0);
@@ -93,6 +94,18 @@ function App() {
           "https://script.google.com/macros/s/AKfycbzKRTMRRNR558b-XWa6uhvmnfbnGK9g3DX9lE1k0Sy2iqnqsu6gediiSoWM-cCtfNPQ/exec"
         );
         setGroupName("Sagert");
+        setGroupExists(true);
+      } else if (sanitized === "greenwood") {
+        setGroupUrl(
+          "https://script.google.com/macros/s/AKfycbyXXdh5Un6W1hE05HffLqGKhnzSpx3jmnk5hmNSKUIJp3t7KFZ1DRtHwGEXwE90JwXp6Q/exec"
+        );
+        setGroupName("Greenwood");
+        setGroupExists(true);
+      } else if (sanitized === "madrona") {
+        setGroupUrl(
+          "https://script.google.com/macros/s/AKfycbypxZtKAa11bmluN5xb8BWtv_qX1R-udOx2cbcfHp4gqlvDMnodNho9hhhTAeN7SUlSzQ/exec"
+        );
+        setGroupName("Madrona");
         setGroupExists(true);
       }
     }
@@ -203,6 +216,11 @@ function App() {
     groupURL,
   ]);
 
+  const validateEmail = (email) => {
+    console.log("Testing: " + email + "; " + /.+@.+\..+/.test(email));
+    return /.+@.+\..+/.test(email);
+  };
+
   const updateEmail = React.useCallback(() => {
     setUserEmail(formEmail);
     setEmailVisible(false);
@@ -219,7 +237,7 @@ function App() {
     return (
       <div className="dish-entry">
         <Typography variant="h6" className="dish-entry-dash">
-          {"•"} 
+          {"•"}
         </Typography>
         <Typography variant="h6" className="dish-entry-title">
           {dishName}
@@ -268,6 +286,7 @@ function App() {
   const prefillForm = React.useCallback((rsvp) => {
     setRsvpExists(true);
     setFormName(rsvp.Name);
+    setTmpEmail(rsvp.Email);
     setFormEmail(rsvp.Email);
     setFormCountA(rsvp.AdultCount ?? 0);
     setFormCountC(rsvp.ChildCount ?? 0);
@@ -429,7 +448,8 @@ function App() {
   }, [formName, formEmail]);
 
   const canSubmitEmail = React.useMemo(() => {
-    return !!formEmail;
+    console.log("" === formEmail ? "Invalid Email" : "Valid Email");
+    return "" !== formEmail;
   }, [formEmail]);
 
   return (
@@ -462,6 +482,15 @@ function App() {
                 </Typography>
                 <div style={{ height: "8px" }}></div>
 
+                {!rsvpExists && (
+                  <Button
+                    onClick={() => {
+                      setEmailVisible(true);
+                    }}
+                  >
+                    Edit Existing RSVP
+                  </Button>
+                )}
                 <Button
                   onClick={() => {
                     setFormVisible(true);
@@ -475,15 +504,7 @@ function App() {
                   </Typography>
                 </Button>
 
-                {!rsvpExists && (
-                  <Button
-                    onClick={() => {
-                      setEmailVisible(true);
-                    }}
-                  >
-                    Edit Existing RSVP
-                  </Button>
-                )}
+                <Button href="/meal-signup">Select a Different Group</Button>
               </>
             )}
 
@@ -527,9 +548,14 @@ function App() {
                         <InputLabel htmlFor="email-input">Email</InputLabel>
                         <OutlinedInput
                           type="text"
-                          value={formEmail}
+                          value={tmpEmail}
                           onChange={(e) => {
-                            setFormEmail(e.target.value);
+                            setTmpEmail(e.target.value);
+                            if (validateEmail(e.target.value)) {
+                              setFormEmail(e.target.value);
+                            } else {
+                              setFormEmail("");
+                            }
                           }}
                           label="email-input"
                         />
@@ -687,9 +713,14 @@ function App() {
                           <InputLabel htmlFor="email-input">Email</InputLabel>
                           <OutlinedInput
                             type="text"
-                            value={formEmail}
+                            value={tmpEmail}
                             onChange={(e) => {
-                              setFormEmail(e.target.value);
+                              setTmpEmail(e.target.value);
+                              if (validateEmail(e.target.value)) {
+                                setFormEmail(e.target.value);
+                              } else {
+                                setFormEmail("");
+                              }
                             }}
                             label="email-input"
                           />
@@ -1126,6 +1157,26 @@ function App() {
                 >
                   <Typography textAlign="center" variant="h5">
                     Sagert
+                  </Typography>
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="white"
+                  sx={{ width: "30ch", maxWidth: "90vw" }}
+                  href="#/greenwood"
+                >
+                  <Typography textAlign="center" variant="h5">
+                    Greenwood
+                  </Typography>
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="white"
+                  sx={{ width: "30ch", maxWidth: "90vw" }}
+                  href="#/madrona"
+                >
+                  <Typography textAlign="center" variant="h5">
+                    Madrona
                   </Typography>
                 </Button>
               </div>
