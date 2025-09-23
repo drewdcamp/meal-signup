@@ -101,13 +101,22 @@ body {
   background-color: var(--dark-fg);
 }
 
+.group-buttons {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 @media (max-width: 1000px) {
   .column-holder {
     flex-direction: column-reverse; /* Stack columns vertically */
     align-items: center;
     justify-content: flex-start;
-    min-width: 60%;
-    max-width: 100%;
+    min-width: 90%;
+    max-width: 90%;
   }
 
   .runner {
@@ -136,6 +145,12 @@ body {
     grid-row: span 2;
     padding-left: 5%;
     padding-right: 5%;
+  }
+
+  .group-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 }
 

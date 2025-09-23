@@ -160,12 +160,13 @@ function App() {
     const attending = formCountA > 0;
 
     setCookie("email", formEmail);
+    setUserEmail(formEmail);
 
     const formData = {
       Date: meetingDateText,
       Timestamp: new Date(),
       Name: formName,
-      Email: userEmail,
+      Email: formEmail,
       Attending: attending,
       AdultCount: attending ? formCountA : 0,
       ChildCount: attending ? formCountC : 0,
@@ -1143,11 +1144,7 @@ function App() {
                 Please select your discipleship community:
               </Typography>
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                }}
+                className="group-buttons"
               >
                 <Button
                   variant="outlined"
