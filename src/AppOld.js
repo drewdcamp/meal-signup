@@ -103,7 +103,7 @@ function App() {
         setGroupExists(true);
       } else if (sanitized === "madrona") {
         setGroupUrl(
-          "https://script.google.com/macros/s/AKfycbypxZtKAa11bmluN5xb8BWtv_qX1R-udOx2cbcfHp4gqlvDMnodNho9hhhTAeN7SUlSzQ/exec"
+          "https://script.google.com/macros/s/AKfycbx1nAZxk8DEzBGBEHcp0ArhfCkdM9LL-_VrW1MAt8Zm-HBtcaxWmxgO7K68wjV2F8UKvA/exec"
         );
         setGroupName("Madrona");
         setGroupExists(true);
