@@ -4,19 +4,26 @@ import App from "./App";
 import { CookiesProvider } from "react-cookie";
 import { HashRouter, Routes, Route } from "react-router";
 import GroupSelectionView from "./Views/GroupSelectionView";
+import "dotenv/config";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+   <React.StrictMode>
     <HashRouter>
       <CookiesProvider>
         <Routes>
           <Route path="/" element={<GroupSelectionView />} />
-          <Route path="/:groupId" element={<App
-            spreadsheetId="1KS5qmIoRfjKS6HFTwPtDLpnNym4trJANUXo50Jf4KCw"
-            auth={{ apiKey: 'AIzaSyAOCZgY5sn-yn1q8UKP4oiipPLxdSidckU' }} />} />
+          <Route
+            path="/:groupId"
+            element={
+              <App
+                spreadsheetId={process.env.REACT_APP_SHEET_ID}
+                auth={{ apiKey: process.env.REACT_APP_API_KEY }}
+              />
+            }
+          />
         </Routes>
       </CookiesProvider>
     </HashRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
