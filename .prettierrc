@@ -1,0 +1,6 @@
+{
+    "printWidth": 120,
+    "objectWrap": "collapse",
+    "proseWrap": "preserve",
+    "singleAttributePerLine": false
+}

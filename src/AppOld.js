@@ -394,6 +394,7 @@ function App() {
         )
       );
     }
+    
     if (nonAttendees.length > 0) {
       attendees.push(
         attendeeEntry("", "", "", <div style={{ height: "32px" }} />)

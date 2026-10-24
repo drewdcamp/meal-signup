@@ -40,6 +40,11 @@ body {
   height: 10%;
 }
 
+.variable-text {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
 .header {
   align-items: center;
   justify-content: center;
@@ -158,6 +163,12 @@ body {
   text-align: center;
   font-size: calc(10px + 100%);
   max-width: 100%;
+}
+
+.dish-title-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .dish {
