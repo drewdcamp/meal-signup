@@ -16,11 +16,7 @@ function AttendeeLine({ name, adultCount, childCount, comment }) {
           {childCount}
         </Typography>
       </div>
-      {typeof comment === "string" || comment instanceof String ? (
-        <Typography variant="body1">{comment}</Typography>
-      ) : (
-        <div>{comment}</div>
-      )}
+      <Typography variant="body1">{comment}</Typography>
     </div>
   );
 }

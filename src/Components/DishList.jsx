@@ -3,8 +3,7 @@ import DishEntry from "./DishEntry";
 import "../App.css";
 
 function DishList({ rsvps, themeInfo }) {
-  
-  const Dishes = React.useMemo(() => {
+  const allDishes = React.useMemo(() => {
     if (themeInfo?.dishes && rsvps) {
       const dishes = [...themeInfo.dishes];
 
@@ -19,10 +18,7 @@ function DishList({ rsvps, themeInfo }) {
 
         for (let j = 0; j < 16; j++) {
           if (dishes[j] && rsvp.dishes[j]) {
-            dishes[j].foodEntries.push({
-              foodName: rsvp.dishes[j],
-              personName: rsvp.name,
-            });
+            dishes[j].foodEntries.push({ foodName: rsvp.dishes[j], personName: rsvp.name });
           }
         }
       }
@@ -44,12 +40,16 @@ function DishList({ rsvps, themeInfo }) {
         }
       }
 
-      return dishViews;
+      if (dishViews.length > 0) {
+        return dishViews;
+      }
+
+      return <></>
     }
-    return null;
+    return <></>;
   }, [rsvps, themeInfo.dishes]);
 
-  return Dishes;
+  return <>{allDishes}</>;
 }
 
 export default DishList;

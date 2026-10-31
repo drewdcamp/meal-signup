@@ -15,7 +15,7 @@ function App({ spreadsheetId, auth }) {
   const params = useParams();
   const [docLoaded, setDocLoaded] = React.useState(false);
   const [fullName, setFullName] = React.useState();
-  const [themeInfo, setThemeInfo] = React.useState({});
+  const [themeInfo, setThemeInfo] = React.useState({date:null,time:null,name:null,dishes:[]});
   const [rsvps, setRsvps] = React.useState([]);
   const [rsvpFormVisible, setRsvpFormVisible] = React.useState(true);
   const [userEmail, setUserEmail] = useCookiedState("email");
@@ -61,7 +61,10 @@ function App({ spreadsheetId, auth }) {
       for (let i = 0; i < 16; i++) {
         const row = 8 + i;
         const dishName = currentThemeSheet.getCell(row, 0).value;
-        if (dishName) {
+
+        console.log(typeof(dishName));
+
+        if (dishName && typeof(dishName) === "string") {
           const dishDesc = currentThemeSheet.getCell(row, 1).value;
           const dishCount = currentThemeSheet.getCell(row, 2).value;
           dishInfo[i] = { name: dishName, description: dishDesc, maxCount: dishCount, foodEntries: [] };
@@ -141,7 +144,6 @@ function App({ spreadsheetId, auth }) {
 
   return (
     <div className="app">
-
       <Typography textAlign="center" variant="h2">
         Meal Signup
       </Typography>
@@ -174,16 +176,15 @@ function App({ spreadsheetId, auth }) {
           <AttendeeList rsvps={rsvps} />
         </div>
       </div>
-
+      
       <Dialog
         open={rsvpFormVisible}
         onClose={() => {
           setRsvpFormVisible(false);
         }}
       >
-        <SignupForm formData={formData} setFormData={setFormData} />
+        <SignupForm formData={formData} setFormData={setFormData} themeInfo={themeInfo} rsvps={rsvps} />
       </Dialog>
-      
     </div>
   );
 }

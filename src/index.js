@@ -8,7 +8,7 @@ import "dotenv/config";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-   <React.StrictMode>
+  <React.StrictMode>
     <HashRouter>
       <CookiesProvider>
         <Routes>
@@ -16,10 +16,7 @@ root.render(
           <Route
             path="/:groupId"
             element={
-              <App
-                spreadsheetId={process.env.REACT_APP_SHEET_ID}
-                auth={{ apiKey: process.env.REACT_APP_API_KEY }}
-              />
+              <App spreadsheetId={process.env.REACT_APP_SHEET_ID} auth={{ apiKey: process.env.REACT_APP_API_KEY }} />
             }
           />
         </Routes>

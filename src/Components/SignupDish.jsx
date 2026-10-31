@@ -1,15 +1,16 @@
 import React from "react";
-import {OutlinedInput, IconButton, InputLabel, FormControl} from "@mui/material";
+import { OutlinedInput, IconButton, InputLabel, FormControl } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-function SignupDish({ dishName, dishSuggestions, dishInput, setDishInput }) {
+function SignupDish({ dishName, dishSuggestions, dishValue, setDishValue }) {
   const [hasValue, setHasValue] = React.useState(false);
   const inputRef = React.useRef(null);
 
   React.useEffect(() => {
-    setHasValue(!!dishInput);
-  }, [dishInput])
+    console.log(dishValue);
+    setHasValue(!!dishValue);
+  }, [dishValue]);
 
   return (
     <div style={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
@@ -17,7 +18,7 @@ function SignupDish({ dishName, dishSuggestions, dishInput, setDishInput }) {
         onClick={() => {
           if (hasValue) {
             setHasValue(false);
-            setDishInput("");
+            setDishValue("");
           } else {
             setHasValue(true);
             inputRef.current.focus();
@@ -31,10 +32,8 @@ function SignupDish({ dishName, dishSuggestions, dishInput, setDishInput }) {
         <InputLabel htmlFor="side-dish-input">{dishName}</InputLabel>
         <OutlinedInput
           type="text"
-          value={dishInput}
-          onChange={(e) => {
-            setDishInput(e.target.value);
-          }}
+          value={dishValue}
+          onChange={(e) => setDishValue(e.target.value)}
           label="side-dish-input"
           inputRef={inputRef}
           placeholder={dishSuggestions}
